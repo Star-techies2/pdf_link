@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Downloaded PDFs</title>
+</head>
+<body>
+    <h1>Downloaded PDFs</h1>
+    <ul>
+        {% for pdf in pdf_files %}
+            <li><a href="/downloads/{{ pdf }}">{{ pdf }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back</a>
+</body>
+</html>
