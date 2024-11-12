@@ -19,11 +19,11 @@ phases:
       - echo Building the Docker image...
       - ls -al
       - docker build -t flask-pdf-downloader .
-      - docker tag flask-pdf-downloader:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/flask-pdf-downloader
+      - docker tag flask-pdf-downloader:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/pdf_link
   post_build:
     commands:
       - echo Pushing the Docker image to ECR...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/flask-pdf-downloader:latest
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/pdf_link:latest
 artifacts:
   files:
     - '**/*'
