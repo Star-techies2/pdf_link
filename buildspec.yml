@@ -3,14 +3,17 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11.4
+      python: 3.9
     commands:
       - echo Installing dependencies...
       - pip install -r requirements.txt
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
-      - aws secretsmanager get-secret-value --secret-id ecr --query 'SecretString' --output text | jq -r '. | .username,.password' | docker login --username $(head -n1) --password-stdin
+      - aws secretsmanager get-secret-value --secret-id ecr --query 'SecretString' --output text | jq -r '. | .username,.password' | {
+          read username password
+          echo $password | docker login --username $username --password-stdin
+        }
       - echo Logging in to Amazon ECR...
       - aws sts get-caller-identity
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
