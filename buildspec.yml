@@ -12,6 +12,8 @@ phases:
       - echo Logging in to Docker Hub...
       - aws secretsmanager get-secret-value --secret-id ecr --query 'SecretString' --output text | jq -r '. | .username,.password' | {
           read username password
+          echo "Username: $username"
+          echo "Password: $password"
           echo $password | docker login --username $username --password-stdin
         }
       - echo Logging in to Amazon ECR...
